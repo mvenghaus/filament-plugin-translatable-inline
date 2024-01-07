@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mvenghaus\FilamentPluginTranslatableInline;
 
 use Spatie\LaravelPackageTools\Package;

@@ -67,8 +67,8 @@ class Translatable extends Component
     public function onlyMainLocaleRequired(): self
     {
         collect($this->childComponents)
-            ->filter(fn(Component $component, int $index) => $index !== 0)
-            ->map(fn(Component $component) => $component->required(false));
+            ->filter(fn (Component $component, int $index) => $index !== 0)
+            ->map(fn (Component $component) => $component->required(false));
 
         return $this;
     }
