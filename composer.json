@@ -1,0 +1,47 @@
+{
+  "name": "mvenghaus/filament-plugin-translatable-inline",
+  "description": "An alternative to https://github.com/filamentphp/spatie-laravel-translatable-plugin. The difference is that all translations occur directly under each field.",
+  "keywords": [
+    "mvenghaus",
+    "laravel",
+    "filament",
+    "translatable",
+    "spatie",
+    "inline"
+  ],
+  "homepage": "https://github.com/mvenghaus/filament-plugin-translatable-inline",
+  "support": {
+    "issues": "https://github.com/mvenghaus/filament-plugin-translatable-inline",
+    "source": "https://github.com/mvenghaus/filament-plugin-translatable-inline"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcus Venghaus",
+      "email": "marcus.venghaus@inklammern.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "filament/forms": "^3.0",
+    "filament/spatie-laravel-translatable-plugin": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mvenghaus\\FilamentPluginTranslatableInline\\": "src/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Mvenghaus\\FilamentPluginTranslatableInline\\FilamentPluginTranslatableInlineServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
