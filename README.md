@@ -8,6 +8,10 @@ This approach offers several advantages:
 - Detecting fields that can be translated is much easier to see
 - You can quickly see which translations are missing
 
+## Screenshots
+
+![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
+
 ## Requirements
 
 You need the latest version of Filament v3.
@@ -90,5 +94,6 @@ Sometimes you might want the field to be required, but only for the primary lang
 
 ### Empty translations
 
-![Drag Racing](Dragster.jpg)
+![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
 
+As you can see in the screenshot, the field "Title" is not bolded for "ES". That means that this translation is empty.
