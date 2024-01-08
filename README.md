@@ -1,4 +1,4 @@
-# Translatable Inline
+# Filament Plugin - Translatable Inline
 
 This is an addon to [Spatie Translatable](https://filamentphp.com/plugins/filament-spatie-translatable) that allows you to edit your translation directly below the field. 
 
