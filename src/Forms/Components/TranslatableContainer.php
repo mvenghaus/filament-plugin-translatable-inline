@@ -6,9 +6,9 @@ namespace Mvenghaus\FilamentPluginTranslatableInline\Forms\Components;
 
 use Filament\Forms\Components\Component;
 
-class Translatable extends Component
+class TranslatableContainer extends Component
 {
-    protected string $view = 'filament-plugin-translatable-inline::forms.components.translatable';
+    protected string $view = 'filament-plugin-translatable-inline::forms.components.translatable-container';
 
     final public function __construct(
         Component $baseComponent,
