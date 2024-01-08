@@ -20,7 +20,7 @@ This package is based on:
 - [Spatie Laravel Translatable](https://github.com/spatie/laravel-translatable)
 - [Filament Spatie Translatable Plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin)
 
-You don't need to install them separately, it's handled via dependencies. If you already use the Filament Spatie Translatable Plugin and want to migrate, see [Migrate Section](#migrate). 
+You don't need to install them separately, it's handled via dependencies. 
 
 ## Installation
 
