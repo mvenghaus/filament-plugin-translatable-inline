@@ -10,7 +10,7 @@ This approach offers several advantages:
 
 ## Screenshots
 
-![Screenshot](https://github.com/mvenghaus/filament-plugin-translatable-inline/blob/main/docs/images/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
 
 ## Requirements
 
@@ -90,10 +90,13 @@ For each field that can be translated, simply repeat this process, and you'll be
 
 Sometimes you might want the field to be required, but only for the primary language. For example, if you set the TextInput to 'required,' it applies to all language variants. This is where this option comes into play. It removes the 'required' validation for all other languages except the primary one.
 
-## Usage
+# Usage
 
-### Empty translations
+## Empty translations
 
-![Screenshot](https://github.com/mvenghaus/filament-plugin-translatable-inline/blob/main/docs/images/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
 
 As you can see in the screenshot, the field "Title" is not bolded for "ES". That means that this translation is empty.
+
+# Contact
+If you any questions or you find a bug, please [contact me via email](mailto:support@inklammern.de).
