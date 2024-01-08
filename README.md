@@ -10,7 +10,7 @@ This approach offers several advantages:
 
 ## Screenshots
 
-![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
+![Screenshot](https://github.com/mvenghaus/filament-plugin-translatable-inline/blob/main/docs/images/screenshot.png)
 
 ## Requirements
 
@@ -94,6 +94,6 @@ Sometimes you might want the field to be required, but only for the primary lang
 
 ### Empty translations
 
-![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
+![Screenshot](https://github.com/mvenghaus/filament-plugin-translatable-inline/blob/main/docs/images/screenshot.png)
 
 As you can see in the screenshot, the field "Title" is not bolded for "ES". That means that this translation is empty.
