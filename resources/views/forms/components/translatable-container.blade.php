@@ -9,7 +9,7 @@
     </style>
     <div x-data="{ open : false }">
         <div>
-            {{ $getMainComponent() }}
+            {{ $getChildComponentContainer('main') }}
         </div>
 
         <div class="flex items-center cursor-pointer select-none mt-2"
@@ -33,9 +33,7 @@
         <div class="mt-4 p-4"
              x-show="open"
         >
-            @foreach ($getSubComponents() as $subComponent)
-                {{ $subComponent }}
-            @endforeach
+            {{ $getChildComponentContainer('additional') }}
         </div>
     </div>
 </div>

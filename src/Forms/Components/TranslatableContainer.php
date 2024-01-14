@@ -5,58 +5,69 @@ declare(strict_types=1);
 namespace Mvenghaus\FilamentPluginTranslatableInline\Forms\Components;
 
 use Filament\Forms\Components\Component;
+use Filament\Forms\ComponentContainer;
+use Illuminate\Support\Collection;
 
 class TranslatableContainer extends Component
 {
     protected string $view = 'filament-plugin-translatable-inline::forms.components.translatable-container';
 
-    final public function __construct(
-        Component $baseComponent,
-        array $schema = []
-    ) {
+    protected array $config = [];
+
+    final public function __construct(array $schema = [])
+    {
         $this->schema($schema);
 
-        $this->statePath($baseComponent->getName());
+        $this->statePath(collect($schema)->first()->getName());
     }
 
     public static function make(Component $component): static
     {
-        $components = collect(self::getTranslatableLocales())
-            ->map(fn (string $locale) => self::cloneComponent($component, $locale))
-            ->toArray();
-
         $static = app(static::class, [
-            'baseComponent' => $component,
-            'schema' => $components,
+            'schema' => [$component]
         ]);
         $static->configure();
 
         return $static;
     }
 
-    private static function cloneComponent(Component $component, string $locale): Component
+    public function getChildComponentContainers(bool $withHidden = false): array
     {
-        return (clone $component)
+        $locales = $this->getTranslatableLocales();
+        $baseComponent = current($this->getChildComponents());
+
+        $containers = [];
+
+        $containers['main'] = ComponentContainer::make($this->getLivewire())
+            ->parentComponent($this)
+            ->components([$this->cloneComponent($baseComponent, $locales->first())]);
+
+        $containers['additional'] = ComponentContainer::make($this->getLivewire())
+            ->parentComponent($this)
+            ->components(
+                $locales
+                    ->filter(fn(string $locale, int $index) => $index !== 0)
+                    ->map(fn(string $locale): Component => $this->cloneComponent($baseComponent, $locale))
+                    ->each(
+                        fn(Component $component) => ($this->config['onlyMainLocaleRequired'] ?? 0) === 0 ?: $component->required(false)
+                    )
+                    ->all()
+            );
+
+        return $containers;
+    }
+
+    public function cloneComponent(Component $component, string $locale): Component
+    {
+        return $component
+            ->getClone()
             ->label("{$component->getLabel()} ({$locale})")
             ->statePath($locale);
     }
 
-    public static function getTranslatableLocales(): array
+    public function getTranslatableLocales(): Collection
     {
-        return filament('spatie-laravel-translatable')->getDefaultLocales();
-    }
-
-    public function getMainComponent(): Component
-    {
-        return $this->getChildComponents()[0];
-    }
-
-    public function getSubComponents(): array
-    {
-        $subComponents = $this->getChildComponents();
-        array_shift($subComponents);
-
-        return $subComponents;
+        return collect(filament('spatie-laravel-translatable')->getDefaultLocales());
     }
 
     public function isLocaleStateEmpty(string $locale): bool
@@ -66,9 +77,7 @@ class TranslatableContainer extends Component
 
     public function onlyMainLocaleRequired(): self
     {
-        collect($this->childComponents)
-            ->filter(fn (Component $component, int $index) => $index !== 0)
-            ->map(fn (Component $component) => $component->required(false));
+        $this->config['onlyMainLocaleRequired'] = 1;
 
         return $this;
     }
