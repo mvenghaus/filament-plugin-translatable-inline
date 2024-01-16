@@ -47,7 +47,10 @@ class TranslatableContainer extends Component
             ->components(
                 $locales
                     ->filter(fn(string $locale, int $index) => $index !== 0)
-                    ->map(fn(string $locale): Component => $this->cloneComponent($baseComponent, $locale))
+                    ->map(
+                        fn(string $locale): Component => $this->cloneComponent($baseComponent, $locale)
+                            ->clearAfterStateUpdatedHooks()
+                    )
                     ->each(
                         fn(Component $component) => ($this->config['onlyMainLocaleRequired'] ?? 0) === 0 ?: $component->required(false)
                     )
