@@ -90,13 +90,33 @@ For each field that can be translated, simply repeat this process, and you'll be
 
 Sometimes you might want the field to be required, but only for the primary language. For example, if you set the TextInput to 'required,' it applies to all language variants. This is where this option comes into play. It removes the 'required' validation for all other languages except the primary one.
 
-# Usage
+## Tipps & Hints
 
-## Empty translations
+### Validation
+
+If all of your locales are required and if your values do not pass the JS validation, then the variants will remain automatically expanded.
+
+### afterStateUpdated
+
+
+
+If you want to use "afterStateUpdated", you have to consider that the state path shifts by one level.'
+
+**Before**
+```php
+->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+```
+
+**After**
+```php
+->afterStateUpdated(fn (Set $set, ?string $state) => $set('../slug', Str::slug($state))),
+```
+
+### Empty translations
 
 ![Screenshot](https://raw.githubusercontent.com/mvenghaus/filament-plugin-translatable-inline/main/docs/images/screenshot.png)
 
-As you can see in the screenshot, the field "Title" is not bolded for "ES". That means that this translation is empty.
+As you can see in the screenshot, the "nl" is not filled and therefore not marked.
 
 # Contact
 If you any questions or you find a bug, please [contact me via email](mailto:support@inklammern.de).
