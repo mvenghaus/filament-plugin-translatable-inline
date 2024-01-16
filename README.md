@@ -98,9 +98,7 @@ If all of your locales are required and if your values do not pass the JS valida
 
 ### afterStateUpdated
 
-
-
-If you want to use "afterStateUpdated", you have to consider that the state path shifts by one level.'
+If you want to use "afterStateUpdated", you have to consider that the state path shifts by one level.
 
 **Before**
 ```php
