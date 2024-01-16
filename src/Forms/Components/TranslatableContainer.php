@@ -12,13 +12,15 @@ class TranslatableContainer extends Component
 {
     protected string $view = 'filament-plugin-translatable-inline::forms.components.translatable-container';
 
-    protected array $config = [];
+    protected Component $baseComponent;
+    protected bool $onlyMainLocaleRequired = false;
 
     final public function __construct(array $schema = [])
     {
         $this->schema($schema);
 
-        $this->statePath(collect($schema)->first()->getName());
+        $this->baseComponent = collect($schema)->first();
+        $this->statePath($this->baseComponent->getName());
     }
 
     public static function make(Component $component): static
@@ -34,13 +36,12 @@ class TranslatableContainer extends Component
     public function getChildComponentContainers(bool $withHidden = false): array
     {
         $locales = $this->getTranslatableLocales();
-        $baseComponent = current($this->getChildComponents());
 
         $containers = [];
 
         $containers['main'] = ComponentContainer::make($this->getLivewire())
             ->parentComponent($this)
-            ->components([$this->cloneComponent($baseComponent, $locales->first())]);
+            ->components([$this->cloneComponent($this->baseComponent, $locales->first())]);
 
         $containers['additional'] = ComponentContainer::make($this->getLivewire())
             ->parentComponent($this)
@@ -48,11 +49,9 @@ class TranslatableContainer extends Component
                 $locales
                     ->filter(fn(string $locale, int $index) => $index !== 0)
                     ->map(
-                        fn(string $locale): Component => $this->cloneComponent($baseComponent, $locale)
+                        fn(string $locale): Component => $this->cloneComponent($this->baseComponent, $locale)
                             ->clearAfterStateUpdatedHooks()
-                    )
-                    ->each(
-                        fn(Component $component) => ($this->config['onlyMainLocaleRequired'] ?? 0) === 0 ?: $component->required(false)
+                            ->required(!$this->onlyMainLocaleRequired)
                     )
                     ->all()
             );
@@ -80,7 +79,7 @@ class TranslatableContainer extends Component
 
     public function onlyMainLocaleRequired(): self
     {
-        $this->config['onlyMainLocaleRequired'] = 1;
+        $this->onlyMainLocaleRequired = true;
 
         return $this;
     }
