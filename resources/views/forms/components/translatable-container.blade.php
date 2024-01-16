@@ -9,25 +9,25 @@
     </style>
     <div
             x-data="{
-            open: false,
-            init() {
-                document.addEventListener('livewire:initialized', () => {
-                    this.open = Boolean($refs.additionalContainer.querySelector(':invalid'));
-                })
-            },
-            handleOpenState() {
-                this.open = !this.open;
-                if (!this.open) {
-                    this.open = Boolean($refs.additionalContainer.querySelector(':invalid'));
+                open: false,
+                init() {
+                    document.addEventListener('livewire:initialized', () => {
+                        this.open = Boolean($refs.additionalContainer.querySelector(':invalid'));
+                    })
+                },
+                handleOpenState() {
+                    this.open = !this.open;
+                    if (!this.open) {
+                        this.open = Boolean($refs.additionalContainer.querySelector(':invalid'));
+                    }
                 }
-            }
         }"
             @form-validation-error.window="
-            $nextTick(() => {
-                if ($refs.additionalContainer.querySelector('[data-validation-error]')) {
-                    open = true;
-                }
-            });
+                $nextTick(() => {
+                    if ($refs.additionalContainer.querySelector('[data-validation-error]')) {
+                        open = true;
+                    }
+                });
         "
     >
         <div>
