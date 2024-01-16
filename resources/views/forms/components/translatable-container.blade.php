@@ -34,7 +34,7 @@
             {{ $getChildComponentContainer('main') }}
         </div>
 
-        <div class="flex items-center cursor-pointer select-none mt-2"
+        <div class="flex items-center gap-1.5 cursor-pointer select-none mt-2"
              @click="handleOpenState()"
         >
             <div x-show="!open" class="translate-svg-color">
@@ -46,8 +46,12 @@
             </div>
 
             @foreach($getTranslatableLocales() as $locale)
-                <div class="text-sm px-1 @if(!$isLocaleStateEmpty($locale)) font-bold @endif">
-                    {{ Str::upper($locale) }}
+                <div class="text-xs rounded-full p-1 shadow-sm ring-2 ring-inset ring-gray-950/10 dark:ring-white/20"
+                     @if (!$isLocaleStateEmpty($locale))
+                         style="border: 1px forestgreen solid"
+                        @endif
+                >
+                    <div class="px-1">{{ $locale }}</div>
                 </div>
             @endforeach
         </div>
