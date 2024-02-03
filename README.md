@@ -74,7 +74,9 @@ use Mvenghaus\FilamentPluginTranslatableInline\Forms\Components\TranslatableCont
                         Forms\Components\TextInput::make('title')
                             ->maxLength(255)
                             ->required()
-                    )->onlyMainLocaleRequired() // optional
+                    )
+                       ->onlyMainLocaleRequired() // optional
+                       ->requiredLocales(['en', 'es']) // optional
                     ,
 
 ...
@@ -90,6 +92,10 @@ For each field that can be translated, simply repeat this process, and you'll be
 
 Sometimes you might want the field to be required, but only for the primary language. For example, if you set the TextInput to 'required,' it applies to all language variants. This is where this option comes into play. It removes the 'required' validation for all other languages except the primary one.
 
+#### requireLocales
+
+If you have more than one required locales you can pass an array to this method.
+
 ## Tipps & Hints
 
 ### Validation
@@ -99,6 +105,7 @@ If all of your locales are required and if your values do not pass the JS valida
 ### afterStateUpdated
 
 If you want to use "afterStateUpdated", you have to consider that the state path shifts by one level.
+n addition, one must specify the locale which is located in the component's name-
 
 **Before**
 ```php
@@ -107,7 +114,7 @@ If you want to use "afterStateUpdated", you have to consider that the state path
 
 **After**
 ```php
-->afterStateUpdated(fn (Set $set, ?string $state) => $set('../slug', Str::slug($state))),
+->afterStateUpdated(fn (Set $set, Component $component, ?string $state) => $set('../slug.' . $component->getName(), Str::slug($state))),
 ```
 
 ### Empty translations

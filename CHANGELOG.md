@@ -2,9 +2,15 @@
 
 All notable changes to `mvenghaus/filament-plugin-translatable-inline` will be documented in this file.
 
+## 3.0.4 - 2024-02-03
+- added requiredLocale [#3](https://github.com/mvenghaus/filament-plugin-translatable-inline/issues/3)
+- fixed issue when nothing is required [#2](https://github.com/mvenghaus/filament-plugin-translatable-inline/issues/2)
+- changed svg icons to blade icons
+- added locale as component name to get the current locale in afterStateUpdated and other methods
+
 ## 3.0.3 - 2024-01-16
 - refactored onlyMainIsRequired
-- improved validation handling
+- improved validation handling [#1](https://github.com/mvenghaus/filament-plugin-translatable-inline/issues/1)
 - little design upgrade
 
 ## 3.0.2 - 2024-01-16

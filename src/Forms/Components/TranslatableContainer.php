@@ -13,7 +13,7 @@ class TranslatableContainer extends Component
     protected string $view = 'filament-plugin-translatable-inline::forms.components.translatable-container';
 
     protected Component $baseComponent;
-    protected bool $onlyMainLocaleRequired = false;
+    protected array $requiredLocales = [];
 
     final public function __construct(array $schema = [])
     {
@@ -41,7 +41,10 @@ class TranslatableContainer extends Component
 
         $containers['main'] = ComponentContainer::make($this->getLivewire())
             ->parentComponent($this)
-            ->components([$this->cloneComponent($this->baseComponent, $locales->first())]);
+            ->components([
+                $this->cloneComponent($this->baseComponent, $locales->first())
+                    ->required($this->isLocaleRequired($locales->first()))
+            ]);
 
         $containers['additional'] = ComponentContainer::make($this->getLivewire())
             ->parentComponent($this)
@@ -50,8 +53,7 @@ class TranslatableContainer extends Component
                     ->filter(fn(string $locale, int $index) => $index !== 0)
                     ->map(
                         fn(string $locale): Component => $this->cloneComponent($this->baseComponent, $locale)
-                            ->clearAfterStateUpdatedHooks()
-                            ->required(!$this->onlyMainLocaleRequired)
+                            ->required($this->isLocaleRequired($locale))
                     )
                     ->all()
             );
@@ -63,6 +65,7 @@ class TranslatableContainer extends Component
     {
         return $component
             ->getClone()
+            ->name($locale)
             ->label("{$component->getLabel()} ({$locale})")
             ->statePath($locale);
     }
@@ -79,8 +82,26 @@ class TranslatableContainer extends Component
 
     public function onlyMainLocaleRequired(): self
     {
-        $this->onlyMainLocaleRequired = true;
+        return $this->requiredLocales([$this->getTranslatableLocales()->first()]);
+    }
+
+    public function requiredLocales(array $locales): self
+    {
+        $this->requiredLocales = $locales;
 
         return $this;
+    }
+
+    private function isLocaleRequired(string $locale): bool
+    {
+        if (in_array($locale, $this->requiredLocales)) {
+            return true;
+        }
+
+        if (empty($this->requiredLocales) && $this->baseComponent->isRequired()) {
+            return true;
+        }
+
+        return false;
     }
 }
