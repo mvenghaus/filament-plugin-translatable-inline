@@ -65,7 +65,7 @@ class TranslatableContainer extends Component
     {
         return $component
             ->getClone()
-            ->name($locale)
+            ->meta('locale', $locale)
             ->label("{$component->getLabel()} ({$locale})")
             ->statePath($locale);
     }

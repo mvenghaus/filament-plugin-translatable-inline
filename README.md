@@ -105,7 +105,7 @@ If all of your locales are required and if your values do not pass the JS valida
 ### afterStateUpdated
 
 If you want to use "afterStateUpdated", you have to consider that the state path shifts by one level.
-n addition, one must specify the locale which is located in the component's name-
+n addition, one must specify the locale which is located in the component's meta under the key "locale".
 
 **Before**
 ```php
@@ -114,7 +114,7 @@ n addition, one must specify the locale which is located in the component's name
 
 **After**
 ```php
-->afterStateUpdated(fn (Set $set, Component $component, ?string $state) => $set('../slug.' . $component->getName(), Str::slug($state))),
+->afterStateUpdated(fn (Set $set, Component $component, ?string $state) => $set('../slug.' . $component->getMeta('locale'), Str::slug($state))),
 ```
 
 ### Empty translations
