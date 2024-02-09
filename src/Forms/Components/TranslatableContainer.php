@@ -13,6 +13,8 @@ class TranslatableContainer extends Component
     protected string $view = 'filament-plugin-translatable-inline::forms.components.translatable-container';
 
     protected Component $baseComponent;
+
+    protected bool $onlyMainIsRequired = false;
     protected array $requiredLocales = [];
 
     final public function __construct(array $schema = [])
@@ -72,7 +74,12 @@ class TranslatableContainer extends Component
 
     public function getTranslatableLocales(): Collection
     {
-        return collect(filament('spatie-laravel-translatable')->getDefaultLocales());
+        $resourceLocales = null;
+        if (method_exists($this->getLivewire()::getResource(), 'getTranslatableLocales')) {
+            $resourceLocales = $this->getLivewire()::getResource()::getTranslatableLocales();
+        }
+
+        return collect($resourceLocales ?? filament('spatie-laravel-translatable')->getDefaultLocales());
     }
 
     public function isLocaleStateEmpty(string $locale): bool
@@ -82,7 +89,9 @@ class TranslatableContainer extends Component
 
     public function onlyMainLocaleRequired(): self
     {
-        return $this->requiredLocales([$this->getTranslatableLocales()->first()]);
+        $this->onlyMainIsRequired = true;
+
+        return $this;
     }
 
     public function requiredLocales(array $locales): self
@@ -94,6 +103,10 @@ class TranslatableContainer extends Component
 
     private function isLocaleRequired(string $locale): bool
     {
+        if ($this->onlyMainIsRequired) {
+            return ($locale === $this->getTranslatableLocales()->first());
+        }
+
         if (in_array($locale, $this->requiredLocales)) {
             return true;
         }
