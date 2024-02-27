@@ -75,7 +75,9 @@ class TranslatableContainer extends Component
     public function getTranslatableLocales(): Collection
     {
         $resourceLocales = null;
-        if (method_exists($this->getLivewire()::getResource(), 'getTranslatableLocales')) {
+        if (method_exists($this->getLivewire(), 'getResource') &&
+            method_exists($this->getLivewire()::getResource(), 'getTranslatableLocales')
+        ) {
             $resourceLocales = $this->getLivewire()::getResource()::getTranslatableLocales();
         }
 

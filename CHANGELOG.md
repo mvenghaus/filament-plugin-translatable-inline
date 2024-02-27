@@ -2,6 +2,9 @@
 
 All notable changes to `mvenghaus/filament-plugin-translatable-inline` will be documented in this file.
 
+## 3.0.5 - 2024-02-27
+- fixed getResource issue in pages & relation manager
+
 ## 3.0.4 - 2024-02-03
 - added requiredLocale [#3](https://github.com/mvenghaus/filament-plugin-translatable-inline/issues/3)
 - fixed issue when nothing is required [#2](https://github.com/mvenghaus/filament-plugin-translatable-inline/issues/2)
