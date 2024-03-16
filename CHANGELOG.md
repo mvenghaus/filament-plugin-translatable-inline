@@ -2,6 +2,9 @@
 
 All notable changes to `mvenghaus/filament-plugin-translatable-inline` will be documented in this file.
 
+## 3.0.8 - 2024-03-16
+- added support for table repeater
+
 ## 3.0.7 - 2024-02-27
 - fixed getResource issue in pages & relation manager
 

@@ -35,6 +35,16 @@ class TranslatableContainer extends Component
         return $static;
     }
 
+    public function getName(): string
+    {
+        return $this->baseComponent->getName();
+    }
+
+    public function getLabel(): string
+    {
+        return $this->baseComponent->getLabel();
+    }
+
     public function getChildComponentContainers(bool $withHidden = false): array
     {
         $locales = $this->getTranslatableLocales();

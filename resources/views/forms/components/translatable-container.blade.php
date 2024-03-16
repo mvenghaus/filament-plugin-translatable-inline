@@ -26,7 +26,7 @@
             {{ $getChildComponentContainer('main') }}
         </div>
 
-        <div class="flex items-center gap-1.5 cursor-pointer select-none mt-2"
+        <div class="flex items-center gap-1.5 cursor-pointer select-none my-2"
              @click="handleOpenState()"
         >
             <div x-show="!open">
