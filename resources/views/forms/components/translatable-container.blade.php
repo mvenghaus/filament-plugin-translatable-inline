@@ -51,7 +51,7 @@
         <div x-ref="additionalContainer"
              x-show="open"
         >
-            <div class="mt-4 p-4">
+            <div class="p-4">
                 {{ $getChildComponentContainer('additional') }}
             </div>
         </div>
